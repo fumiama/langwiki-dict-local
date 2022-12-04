@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<!-- edited from https://langwiki.org/tools/dict/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="keywords" content="中古音查询,方言拼音,粤语拼音,闽南语拼音,满语转写">
+	<link rel="icon" href="png/mdpi-ic_launcher.png" sizes="48x48">
+	<title>漢字古今中外讀音查詢 | 语言维基 </title>
+	<!-- css cdn -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-switch.min.css">
+	<!-- css specified -->
+	<link rel="stylesheet" type="text/css" href="css/flexdict.style.css">
+	<!-- javascript cdn -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-switch.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/html5shiv.min.js"></script>
+	<script type="text/javascript" src="js/respond.min.js"></script>
+	<!-- javascript local -->
+	<script type="text/javascript" src="js/rangyinputs-jquery.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="css/bootstrap-table.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="js/bootstrap-table.min.js"></script>
+
+  <!-- Latest compiled and minified Locales -->
+  <script src="js/bootstrap-table-zh-CN.min.js"></script>
+
+  <!-- javascript specified -->
+  <script type="text/javascript" src="js/flexdict.js"></script>
+
+	
+<script type="text/javascript" charset="UTF-8">
+/* <![CDATA[ */
+try { if (undefined == xajax.config) xajax.config = {}; } catch (e) { xajax = {}; xajax.config = {}; };
+xajax.config.requestURI = "api";
+xajax.config.statusMessages = false;
+xajax.config.waitCursor = true;
+xajax.config.version = "xajax 0.5";
+xajax.config.defaultMode = "asynchronous";
+xajax.config.defaultMethod = "POST";
+xajax.config.JavaScriptURI = "/external/";
+/* ]]> */
+</script>
+<script type="text/javascript" src="js/xajax_core.js" charset="UTF-8"></script>
+<script type="text/javascript" charset="UTF-8">
+/* <![CDATA[ */
+window.setTimeout(
+ function() {
+  var scriptExists = false;
+  try { if (xajax.isLoaded) scriptExists = true; }
+  catch (e) {}
+  if (!scriptExists) {
+   alert("Error: the xajax Javascript component could not be included. Perhaps the URL is incorrect?\nURL: /external/xajax_js/xajax_core.js");
+  }
+ }, 2000);
+/* ]]> */
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+/* <![CDATA[ */
+xajax_addToMemo = function() { return xajax.request( { xjxfun: 'addToMemo' }, { parameters: arguments } ); };
+xajax_deleteMemos = function() { return xajax.request( { xjxfun: 'deleteMemos' }, { parameters: arguments } ); };
+/* ]]> */
+</script>
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+		  <div class="container">
+			<div class="navbar-header">
+		      <a class="navbar-brand navbar-brand-logo">
+				<img alt="漢字古今中外讀音查詢" src="png/mdpi-ic_launcher.png">
+			  </a>
+			  <a class="navbar-brand navbar-brand-moji" style="font-size:14px" href="https://langwiki.org/">漢字古今中外讀音查詢 | 语言维基</a>
+		    </div>
+		  </div>
+		</nav>
+	</header>
+	<div class="container dict-box jumbotron">
+		<ul class="nav nav-tabs">
+		    <li id="dictionary" role="presentation" class="active"><a onclick="tabs('dictionary')">字典</a></li>
+		    <li id="setting" role="presentation" class=""><a onclick="tabs('setting')">設置</a></li>
+		    <li id="instruction" role="presentation" class=""><a onclick="tabs('instruction')">說明</a></li>
+		</ul>
+		<div class="container dict-panel">
+
+			<div id="dictionary-wrapper" style="display: block;">
+				<div class="dictionary-query">
+				<div class="container" style="padding-left:0px">
+					<div class="row">
+					  <div class="col-xs-3 col-xs-title"><label for="_search_"><h5>查詢內容</h5></label></div>
+					  <div class="col-xs-7 input-group-sm"><input type="text" class="form-control" id="_search_" placeholder="輸入漢字或讀音" maxlength="20" autofocus=""></div>
+					  <div class="col-xs-2"><button type="button" class="btn btn-block btn-sm btn-default" style="padding-left:3px; padding-right:3px" onclick="query()">查詢</button></div>
+					</div>
+					<div class="row">
+					  <div class="col-xs-3 col-xs-title"><label><h5>查詢模式</h5></label></div>
+					  <div class="col-xs-9 dropdown">
+						  <button class="btn btn-block btn-sm btn-success dropdown-toggle" type="button" id="dropdown-selector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="0">
+						    漢字
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu dropdown-menu-right" aria-labelle0by="dropdown-selector">
+						    <li><a id="selector-0" onclick="change_mode(0)">漢字</a></li>
+						    <li><a id="selector-1" onclick="change_mode(1)">中古拼音</a></li>
+						    <li><a id="selector-2" onclick="change_mode(2)">普通話</a></li>
+						    <li><a id="selector-3" onclick="change_mode(3)">粵語</a></li>
+						    <li><a id="selector-4" onclick="change_mode(4)">吳語（上海話）</a></li>
+						    <li><a id="selector-5" onclick="change_mode(5)">閩南語</a></li>
+						    <li role="separator" class="divider"></li>
+						    <li><a id="selector-6" onclick="change_mode(6)">朝鮮語</a></li>
+						    <li role="separator" class="divider"></li>
+						    <li><a id="selector-7" onclick="change_mode(7)">越南語</a></li>
+						    <li role="separator" class="divider"></li>
+						    <li><a id="selector-8" onclick="change_mode(8)">日語吳音</a></li>
+						    <li><a id="selector-9" onclick="change_mode(9)">日語漢音</a></li>
+						    <li><a id="selector-10" onclick="change_mode(10)">日語（任意讀音）</a></li>
+						  </ul>
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="col-xs-3 col-xs-title"><label><h5>查詢選項</h5></label></div>
+					  <div class="col-xs-2 col-xs-switch"><div class="bootstrap-switch-small bootstrap-switch-id-switch-0 bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-off bootstrap-switch-animate" style="width: 52px;"><div class="bootstrap-switch-container" style="width: 74px; margin-left: 0px;"><input id="switch-0" type="checkbox" checked=""></div></div></div>
+					  <div class="col-xs-7 col-xs-sup" style="text-align:right"><i>僅查找《廣韻》</i></div>
+					</div>
+
+					<div class="row">
+					  <div class="col-xs-2 col-xs-switch col-xs-offset-3"><div class="bootstrap-switch-on bootstrap-switch-small bootstrap-switch-id-switch-1 bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate" style="width: 52px;"><div class="bootstrap-switch-container" style="width: 74px; margin-left: 0px;"><input id="switch-1" type="checkbox" checked=""></div></div></div>
+					  <div class="col-xs-7 col-xs-sup" style="text-align:right"><i>包括繁簡、異體字</i></div>
+					</div>
+
+					<div class="row">
+					  <div class="col-xs-2 col-xs-switch col-xs-offset-3"><div class="bootstrap-switch-on bootstrap-switch-small bootstrap-switch-id-switch-2 bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate" style="width: 52px;"><div class="bootstrap-switch-container" style="width: 74px; margin-left: 0px;"><input id="switch-2" type="checkbox" checked=""></div></div></div>
+					  <div class="col-xs-7 col-xs-sup" style="text-align:right"><i>顯示《廣韻》註釋</i></div>
+					</div>
+				</div>
+				</div>
+				<script type="text/javascript">
+					switch_init();
+				</script>
+
+				<hr>
+
+				<div class="dictionary-result">
+					<div class="result-collector" id="results"><div class="container result-card" value="5508"><div class="row"><div class="col-xs-3 col-xs-char"><span class="h1">掃</span><br><span class="char-code"><small>U+6383</small></span><br><br></div><div class="col-xs-9 col-xs-detail"><div class="container"><div class="row"><div class="col-xs-12 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_mc.svg" alt="中古" width="24px" height="24px"></td><td>sáo (心效晧一開 上声19皓 蘇老切 註:上同)<br>sào (心效号一開 去声20號 蘇到切 註:上同)</td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_pu.svg" alt="普" width="24px" height="24px"></td><td>sǎo, sào</td></tr></tbody></table></div><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_mg.svg" alt="明" width="24px" height="24px"></td><td>sao, sao</td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_ct.svg" alt="粵" width="24px" height="24px"></td><td>sōu (sóu)</td></tr></tbody></table></div><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_sh.svg" alt="上海" width="24px" height="24px"></td><td>so</td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_sz.svg" alt="蘇州" width="24px" height="24px"></td><td>sä̀</td></tr></tbody></table></div><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_mn.svg" alt="閩南" width="24px" height="24px"></td><td><span class="light">sạ̀o</span>, <strong>sə̣̀</strong></td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_md.svg" alt="閩東" width="24px" height="24px"></td><td>suā, sǎo</td></tr></tbody></table></div><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_hk.svg" alt="客" width="24px" height="24px"></td><td>so⁵⁵</td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_kr.svg" alt="朝" width="24px" height="24px"></td><td>소</td></tr></tbody></table></div><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_vn.svg" alt="越" width="24px" height="24px"></td><td>tảo, táo</td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_jp_go.svg" alt="日吳" width="24px" height="24px"></td><td><strong>そう (さう)</strong></td></tr></tbody></table></div><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_jp_kan.svg" alt="日漢" width="24px" height="24px"></td><td><strong>そう (さう)</strong></td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_jp_yomi.svg" alt="日訓" width="24px" height="24px"></td><td>はく</td></tr></tbody></table></div><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_tz.svg" alt="通字" width="24px" height="24px"></td><td>sao</td></tr></tbody></table></div></div></div></div></div></div><hr><div class="container result-card" value="2558"><div class="row"><div class="col-xs-3 col-xs-char"><span class="h1">埽</span><br><span class="char-code"><small>U+57FD</small></span><br><span class="h5"><small>（掃）</small></span><br><br></div><div class="col-xs-9 col-xs-detail"><div class="container"><div class="row"><div class="col-xs-12 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_mc.svg" alt="中古" width="24px" height="24px"></td><td>sáo (心效晧一開 上声19皓 蘇老切 註:埽除)<br>sào (心效号一開 去声20號 蘇到切 註:埽灑說文棄也又桑道切)</td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_pu.svg" alt="普" width="24px" height="24px"></td><td>sào, sǎo</td></tr></tbody></table></div><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_mg.svg" alt="明" width="24px" height="24px"></td><td>sao, sao</td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_ct.svg" alt="粵" width="24px" height="24px"></td><td>sōu</td></tr></tbody></table></div><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_mn.svg" alt="閩南" width="24px" height="24px"></td><td>[sə̣̀]</td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_md.svg" alt="閩東" width="24px" height="24px"></td><td>suā</td></tr></tbody></table></div><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_kr.svg" alt="朝" width="24px" height="24px"></td><td>소</td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_vn.svg" alt="越" width="24px" height="24px"></td><td>tảo</td></tr></tbody></table></div><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_jp_go.svg" alt="日吳" width="24px" height="24px"></td><td>そう (さう)</td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_jp_kan.svg" alt="日漢" width="24px" height="24px"></td><td>そう (さう)</td></tr></tbody></table></div></div></div></div></div></div><hr><div class="container result-card" value="5228"><div class="row"><div class="col-xs-3 col-xs-char"><span class="h1">扫</span><br><span class="char-code"><small>U+626B</small></span><br><span class="h5"><small>（掃）</small></span><br><br></div><div class="col-xs-9 col-xs-detail"><div class="container"><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_pu.svg" alt="普" width="24px" height="24px"></td><td>sǎo, sào</td></tr></tbody></table></div><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_sh.svg" alt="上海" width="24px" height="24px"></td><td>so</td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_kr.svg" alt="朝" width="24px" height="24px"></td><td>소</td></tr></tbody></table></div><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_vn.svg" alt="越" width="24px" height="24px"></td><td>tảo</td></tr></tbody></table></div></div><div class="row"><div class="col-xs-6 col-xs-orthography"><table><tbody><tr style="text-align: left;"><td><img src="svg/lang_jp_yomi.svg" alt="日訓" width="24px" height="24px"></td><td>はく</td></tr></tbody></table></div></div></div></div></div></div></div>
+				</div>
+			</div>
+
+      <div id="multidict-wrapper" style="display: none;">
+        <div class="dictionary-query">
+          <div class="container" style="padding-left:0px">
+
+            <div class="row">
+  					  <div class="col-xs-3 col-xs-title"><label for="_search_"><h5>查詢內容</h5></label></div>
+  					  <div class="col-xs-7 input-group-sm"><input type="text" class="form-control" id="_search_multi_dict_" placeholder="輸入字或詞語" maxlength="20" autofocus=""></div>
+  					  <div class="col-xs-2"><button type="button" class="btn btn-block btn-sm btn-default" style="padding-left:3px; padding-right:3px" onclick="queryMultiDict('1')">查詢</button></div>
+  					</div>
+  					<div class="row">
+  					  <div class="col-xs-3 col-xs-title"><label><h5>選擇語言</h5></label></div>
+  					  <div class="col-xs-9 dropdown">
+  						  <button class="btn btn-block btn-sm btn-success dropdown-toggle" type="button" id="dropdown-selector-lang" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="auto">
+  						    自動
+  						    <span class="caret"></span>
+  						  </button>
+  						  <ul class="dropdown-menu dropdown-menu-right" aria-labelle0by="dropdown-selector-lang">
+  						    <li><a id="selector-lang-auto" onclick="change_dict('auto')">自動</a></li>
+  						    <li><a id="selector-lang-tw" onclick="change_dict('tw')">台灣標準國語辭書</a></li>
+  						    <li><a id="selector-lang-cn" onclick="change_dict('cn')">现代汉语词典</a></li>
+  						    <li><a id="selector-lang-manxi" onclick="change_dict('manxi')">满语和锡伯语</a></li>
+                  <li><a id="selector-lang-tib" onclick="change_dict('tib')">藏語</a></li>
+                  <li><a id="selector-lang-cng" onclick="change_dict('cng')">羌語</a></li>
+                  <li><a id="selector-lang-hmn" onclick="change_dict('hmn')">苗語</a></li>
+                  <li><a id="selector-lang-zha" onclick="change_dict('zha')">壯語</a></li>
+                  <li role="separator" class="divider"></li>
+  						    <li><a id="selector-lang-en" onclick="change_dict('en')">英語</a></li>
+  						    <li><a id="selector-lang-fr" onclick="change_dict('fr')">法語</a></li>
+                  <li><a id="selector-lang-jp" onclick="change_dict('jp')">日語</a></li>
+  						    <li><a id="selector-lang-ko" onclick="change_dict('ko')">韓語</a></li>
+  						    <li role="separator" class="divider"></li>
+  						    <li><a id="selector-lang-sa" onclick="change_dict('sa')">梵語</a></li>
+  						    <li><a id="selector-lang-el" onclick="change_dict('el')">希臘語</a></li>
+  						    <li><a id="selector-lang-la" onclick="change_dict('la')">拉丁語</a></li>
+  						  </ul>
+  					  </div>
+  					</div>
+
+    				<hr>
+
+    				<div class="multi-dictionary-result">
+    					<div class="result-collector" id="multidict-results">
+    					</div>
+    				</div>
+
+          </div>
+        </div>
+			</div>
+
+			<div id="converter-wrapper" style="display: none;">
+				<div class="lead" style="margin-bottom:0px; padding-top:5px; text-align:center; color:#CE000F; font-size:20px">
+					漢字－拼音轉換・拼音文字互轉
+				</div>
+				<div class="dictionary-query">
+					<div class="container" style="padding-left:0px">
+						<div class="row">
+						  <div class="col-xs-3 col-xs-title"><label for="_search_"><h5>輸入</h5></label></div>
+						  <div class="col-xs-7 input-group-sm">
+								<textarea id="_converter_" class="form-control" spellcheck="false" maxlength="1000" autofocus=""></textarea>
+							</div>
+						  <div class="col-xs-2"><button type="button" class="btn btn-block btn-sm btn-default" style="padding-left:3px; padding-right:3px" onclick="convert()">轉換</button></div>
+						</div>
+						<div class="row">
+						  <div class="col-xs-3 col-xs-title"><label><h5>轉換方式</h5></label></div>
+						  <div class="col-xs-7 dropdown">
+							  <button class="btn btn-block btn-sm btn-success dropdown-toggle" type="button" id="convert-dropdown-selector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="0">
+							    漢字-&gt;中古拼音
+							    <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu dropdown-menu-right" aria-labelle0by="convert-dropdown-selector">
+							    <li><a id="convert-selector-0" onclick="change_convert_mode(0);">漢字-&gt;中古拼音</a></li>
+									<li><a id="convert-selector-2" onclick="change_convert_mode(2);">漢字-&gt;粵語</a></li>
+									<li><a id="convert-selector-3" onclick="change_convert_mode(3);">漢字-&gt;閩南語</a></li>
+									<li><a id="convert-selector-4" onclick="change_convert_mode(4);">漢字-&gt;吳語（上海話）</a></li>
+									<li><a id="convert-selector-7" onclick="change_convert_mode(7);">满文-&gt;拉丁</a></li>
+									<li><a id="convert-selector-8" onclick="change_convert_mode(8);">拉丁-&gt;满文</a></li>
+									<li><a id="convert-selector-9" onclick="change_convert_mode(9);">新通拼·扩展拉丁-&gt;新通拼·基本拉丁</a></li>
+									<li><a id="convert-selector-10" onclick="change_convert_mode(10);">新通拼·基本拉丁-&gt;新通拼·扩展拉丁</a></li>
+									<li><a id="convert-selector-5" onclick="change_convert_mode(5);">漢字-&gt;韓語</a></li>
+									<li><a id="convert-selector-11" onclick="change_convert_mode(11);">韩文-&gt;新通用拼音</a></li>
+									<li><a id="convert-selector-6" onclick="change_convert_mode(6);">日文-&gt;日語讀音</a></li>
+									<li><a id="convert-selector-12" onclick="change_convert_mode(12);">純韓文-&gt;漢韓混用文</a></li>
+									<li><a id="convert-selector-13" onclick="change_convert_mode(13);">漢韓混用文-&gt;純韓文</a></li>
+									<li><a id="convert-selector-14" onclick="change_convert_mode(14);">漢字-&gt;趙元任通字（測試）</a></li>
+                                    <li><a id="convert-selector-15" onclick="change_convert_mode(15);">拼音-&gt;諺文（測試）</a></li>
+                                    <li><a id="convert-selector-16" onclick="change_convert_mode(16);">藏文-&gt;拉丁</a></li>
+                                    <li><a id="convert-selector-17" onclick="change_convert_mode(17);">維吾爾文-&gt;拉丁</a></li>
+                                    <li><a id="convert-selector-18" onclick="change_convert_mode(18);">西里爾文-&gt;拉丁</a></li>
+									<!-- <li><a id="convert-selector-1" onclick="change_convert_mode(1);">中古拼音->漢字</a></li> -->
+							  </ul>
+						  </div>
+						</div>
+						<div class="row">
+								<div class="col-xs-3 col-xs-title"><label for="_converter_result_"><h5>轉換結果</h5></label></div>
+								<div class="col-xs-7 input-group-sm" style="text-align:left">
+									<div class="btn-group">
+									    <button id="convert_tool_to_upper" type="button" class="btn btn-default" style="color: lightgray;"><span class="glyphicon glyphicon-arrow-right">AB</span></button>
+									    <button id="convert_tool_to_lower" type="button" class="btn btn-default" style="color: lightgray;"><span class="glyphicon glyphicon-arrow-right">ab</span></button>
+									    <button id="convert_tool_to_proper" type="button" class="btn btn-default" style="color: lightgray;"><span class="glyphicon glyphicon-arrow-right">Ab</span></button>
+									</div>
+									<script type="text/javascript">
+										convert_toolbar_init();
+									</script>
+								  <textarea id="_convert_results_" class="form-control" spellcheck="false" maxlength="7000" placeholder=""></textarea>
+							  </div>
+						</div>
+						<!-- 轉碼選項 -->
+						<div class="row">
+							<div class="col-xs-3 col-xs-title"><label><h5>轉碼選項</h5></label></div>
+							<div class="col-xs-2 col-xs-sup" style="text-align:left">輸出格式</div>
+							<div class="col-xs-5 dropdown">
+								<button class="btn btn-block btn-sm btn-success dropdown-toggle" type="button" id="convert-match-dropdown-selector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="0">
+									純拼音
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-right" aria-labelle0by="convert-match-dropdown-selector">
+									<li><a id="convert-match-selector-0" onclick="change_convert_match_mode(0);">純拼音</a></li>
+									<li><a id="convert-match-selector-1" onclick="change_convert_match_mode(1);">逐字匹配</a></li>
+									<li><a id="convert-match-selector-2" onclick="change_convert_match_mode(2);">逐行交替（拼音在上）</a></li>
+									<li><a id="convert-match-selector-3" onclick="change_convert_match_mode(3);">逐行交替（拼音在下）</a></li>
+								</ul>
+							</div>
+						</div>
+						<script type="text/javascript">
+							convert_switch_init();
+						</script>
+					</div>
+				</div>
+		  </div>
+
+			<div id="notepad-wrapper" style="display: none;">
+				<div class="lead" style="margin-bottom:0px; padding-top:5px; text-align:center; color:#CE000F; font-size:20px">生字本</div>
+        <div id="memo-holder">
+          <div style="text-align: center;">如果还没有账号，请先注册账号。如已有语言维基账号，请登录。</div>        </div>
+			</div>
+			<div id="setting-wrapper" style="display: none; padding-bottom: 211px;">
+				<div class="dictionary-setting">
+					<div class="container">
+						<div class="row" style="text-align:left"><span class="h6">普通話顯示方式</span></div>
+						<div class="row dropdown">
+						  <button class="btn btn-block btn-sm btn-default dropdown-toggle" type="button" id="dropdown-pu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="0">
+						    漢語拼音
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu dropdown-menu-right" aria-labelle0by="dropdown-pu">
+						    <li><a id="pu-0" onclick="set_display(0, 'pu')">漢語拼音</a></li>
+						    <li><a id="pu-1" onclick="set_display(1, 'pu')">注音符號</a></li>
+								<li><a id="pu-2" onclick="set_display(2, 'pu')">国际音标</a></li>
+						  </ul>
+						</div>
+						<hr class="a">
+						<div class="row" style="text-align:left"><span class="h6">中古音拼寫方案</span></div>
+						<div class="row dropdown">
+							<button class="btn btn-block btn-sm btn-default dropdown-toggle" type="button" id="dropdown-ltco" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="0">
+								新通用拼音（通用方言拼音）
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right" aria-labelle0by="dropdown-ltco">
+								<li><a id="ltco-0" onclick="set_display(0, 'ltco')">新通用拼音（通用方言拼音）</a></li>
+								<li><a id="ltco-1" onclick="set_display(1, 'ltco')">古韻羅馬字（Polyhedron）</a></li>
+							</ul>
+						</div>
+						<hr class="a">
+						<div class="row" style="text-align:left"><span class="h6">中古音标（广韵韻目或国际音标）</span></div>
+						<div class="row dropdown">
+							<button class="btn btn-block btn-sm btn-default dropdown-toggle" type="button" id="dropdown-ltcp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="1">
+								广韵韵目及反切
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right" aria-labelle0by="dropdown-ltcp">
+								<li><a id="ltcp-0" onclick="set_display(0, 'ltcp')">不显示</a></li>
+								<li><a id="ltcp-1" onclick="set_display(1, 'ltcp')">广韵韵目及反切</a></li>
+								<li><a id="ltcp-2" onclick="set_display(2, 'ltcp')">高本汉（国际音标）</a></li>
+								<li><a id="ltcp-3" onclick="set_display(3, 'ltcp')">李荣（国际音标）</a></li>
+								<li><a id="ltcp-4" onclick="set_display(4, 'ltcp')">王力（国际音标）</a></li>
+								<li><a id="ltcp-5" onclick="set_display(5, 'ltcp')">蒲立本（国际音标）</a></li>
+								<li><a id="ltcp-6" onclick="set_display(6, 'ltcp')">白一平（国际音标）</a></li>
+								<li><a id="ltcp-7" onclick="set_display(7, 'ltcp')">潘悟云（国际音标）</a></li>
+							</ul>
+						</div>
+						<hr class="a">
+						<div class="row" style="text-align:left"><span class="h6">粵語拼音系統（用於輸入和顯示）</span></div>
+						<div class="row dropdown">
+						  <button class="btn btn-block btn-sm btn-default dropdown-toggle" type="button" id="dropdown-ct" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="4">
+						    新通用拼音
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu dropdown-menu-right" aria-labelle0by="dropdown-ct">
+						    <li><a id="ct-0" onclick="set_display(0, 'ct')">香港語言學學會式（粵拼）</a></li>
+						    <li><a id="ct-1" onclick="set_display(1, 'ct')">教院式</a></li>
+						    <li><a id="ct-2" onclick="set_display(2, 'ct')">耶魯式</a></li>
+						    <li><a id="ct-3" onclick="set_display(3, 'ct')">劉錫祥式</a></li>
+								<li><a id="ct-4" onclick="set_display(4, 'ct')">新通用拼音</a></li>
+						  </ul>
+						</div>
+
+						<div class="row" style="text-align:left"><span class="h6">閩南語顯示方式</span></div>
+						<div class="row dropdown">
+						  <button class="btn btn-block btn-sm btn-default dropdown-toggle" type="button" id="dropdown-mn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="0">
+						    新通用拼音
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu dropdown-menu-right" aria-labelle0by="dropdown-mn">
+								<li><a id="mn-0" onclick="set_display(0, 'mn')">新通用拼音</a></li>
+						    <li><a id="mn-1" onclick="set_display(1, 'mn')">臺語羅馬字</a></li>
+						  </ul>
+						</div>
+
+						<div class="row" style="text-align:left"><span class="h6">吳語顯示方式</span></div>
+						<div class="row dropdown">
+						  <button class="btn btn-block btn-sm btn-default dropdown-toggle" type="button" id="dropdown-wu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="0">
+						    新通用拼音
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu dropdown-menu-right" aria-labelle0by="dropdown-wu">
+								<li><a id="wu-0" onclick="set_display(0, 'wu')">新通用拼音</a></li>
+						    <li><a id="wu-1" onclick="set_display(1, 'wu')">吳語協會拼音</a></li>
+						  </ul>
+						</div>
+
+						<hr class="a">
+						<div class="row" style="text-align:left"><span class="h6">朝鮮語顯示方式</span></div>
+						<div class="row dropdown">
+						  <button class="btn btn-block btn-sm btn-default dropdown-toggle" type="button" id="dropdown-kr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="0">
+						    諺文
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu dropdown-menu-right" aria-labelle0by="dropdown-kr">
+						    <li><a id="kr-0" onclick="set_display(0, 'kr')">諺文</a></li>
+						    <li><a id="kr-1" onclick="set_display(1, 'kr')">文觀部2000年式羅馬字</a></li>
+								<li><a id="kr-2" onclick="set_display(2, 'kr')">新通用拼音</a></li>
+						  </ul>
+						</div>
+						<hr class="a">
+						<div class="row" style="text-align:left"><span class="h6">越南語聲調標記方式</span></div>
+						<div class="row dropdown">
+						  <button class="btn btn-block btn-sm btn-default dropdown-toggle" type="button" id="dropdown-vn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="0">
+						    舊式（hòa, thủy）
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu dropdown-menu-right" aria-labelle0by="dropdown-vn">
+						    <li><a id="vn-0" onclick="set_display(0, 'vn')">舊式（hòa, thủy）</a></li>
+						    <li><a id="vn-1" onclick="set_display(1, 'vn')">新式（hoà, thuỷ）</a></li>
+						  </ul>
+						</div>
+						<hr class="a">
+						<div class="row" style="text-align:left"><span class="h6">日語顯示方式</span></div>
+						<div class="row dropdown">
+						  <button class="btn btn-block btn-sm btn-default dropdown-toggle" type="button" id="dropdown-jp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="0">
+						    平假名
+						    <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu dropdown-menu-right" aria-labelle0by="dropdown-jp">
+						    <li><a id="jp-0" onclick="set_display(0, 'jp')">平假名</a></li>
+						    <li><a id="jp-1" onclick="set_display(1, 'jp')">片假名</a></li>
+						    <li><a id="jp-2" onclick="set_display(2, 'jp')">日本式羅馬字</a></li>
+						    <li><a id="jp-3" onclick="set_display(3, 'jp')">黑本式羅馬字</a></li>
+						  </ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="instruction-wrapper" style="display: none;">
+				<div class="dictionary-instruction">
+					<div class="container">
+						<span class="h3">開發日誌</span>
+						<hr class="a">
+						<span class="h5">2022-12-04</span>
+						<p>將主要功能遷移為本地網站</p>
+						<span class="h5">2016-09-21</span>
+						<p>吳語，閩南語，朝鮮語，越南語，日語顯示<br>加粗和灰體字體，換行調整</p>
+						<span class="h5">2016-09-20</span>
+						<p>中古拼音(廣韻 平水韻)，普通話，粵語顯示</p>
+						<span class="h5">2016-09-19</span>
+						<p>實現繁簡、異體轉換，實現限定《廣韻》查找</p>
+						<span class="h5">2016-09-17</span>
+						<p>實現漢字檢索</p>
+						<span class="h5">2016-09-16</span>
+						<p>完成前端基本佈局</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer class="container footer-box">
+		©2022 <a href="https://langwiki.org/" target="_blank">Langwiki</a>
+	</footer>
+
+<script type="text/javascript">
+	if ($(window).width() <= 768) {
+		$(".result-collector").height(Math.max(200, $(window).height()-415));
+	}
+	$("#setting-wrapper").css('padding-bottom', Math.max(50, $(window).height()-553));
+</script>
+
+</body></html>
