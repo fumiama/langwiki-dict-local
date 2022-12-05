@@ -69,6 +69,10 @@ func main() {
 			continue
 		}
 		content, err := q.NewContent([]byte(data))
+		if err == q.ErrZeroLang {
+			fmt.Println("未入库的字:", &content)
+			continue
+		}
 		if err != nil {
 			fmt.Println("ERROR:", err)
 			c--
